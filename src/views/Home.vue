@@ -1,18 +1,84 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="my-strictly-unique-vue-upload-multiple-image" style="display: flex; justify-content: center;">
+    <vue-upload-multiple-image
+      dragText="Загрузите фото"
+      browseText="Загрузите фото1"
+      primaryText="Загрузите фото2"
+      markIsPrimaryText="Загрузите фото3"
+      dropText="Загрузите фото4"
+      popupText="Загрузите фото5"
+      accept="Загрузите фото6"
+      @upload-success="uploadImageSuccess"
+      @before-remove="beforeRemove"
+      @edit-image="editImage"
+      :data-images="images"
+      idUpload="myIdUpload"
+      editUpload="myIdEdit"
+      ></vue-upload-multiple-image>
   </div>
 </template>
-
+ 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import VueUploadMultipleImage from 'vue-upload-multiple-image'
+// import axios from 'axios'
 export default {
-  name: 'Home',
+  name: 'app',
+  data () {
+    return {
+      images: []
+    }
+  },
   components: {
-    HelloWorld
+    VueUploadMultipleImage
+  },
+  methods: {
+    uploadImageSuccess(formData, index, fileList) {
+      console.log('data', formData, index, fileList)
+      // Upload image api
+      // axios.post('http://your-url-upload', formData).then(response => {
+      //   console.log(response)
+      // })
+    },
+    beforeRemove (index, done, fileList) {
+      console.log('index', index, fileList)
+      var r = confirm("remove image")
+      if (r == true) {
+        done()
+      }
+    },
+    editImage (formData, index, fileList) {
+      console.log('edit data', formData, index, fileList)
+    }
   }
 }
-</script>
+</script> 
+ 
+<style>
+#my-strictly-unique-vue-upload-multiple-image {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+ 
+h1, h2 {
+  font-weight: normal;
+}
+ 
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+ 
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+ 
+a {
+  color: #42b983;
+}
+</style> 
+ 
